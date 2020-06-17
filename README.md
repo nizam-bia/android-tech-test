@@ -39,6 +39,13 @@ Pupils have several fields, including Name, Country, Image, Latitude and Longitu
 
 During testing you may have deleted all pupils or added lots of strange and invalid data. You can use the reset endpoint to clear the database and seed it with some stock data so you can start from afresh.
 
+## Projects
+
+To give you a starting point. We created two project for each of the supported language on Native Android, please feel free to choose the language you feel more comfortable working with
+
+1. Java: android-tech-test-java
+2. Kotlin: android-tech-test-kotlin
+
 ## App Requirements
 
 The requirements from the business owner are:
