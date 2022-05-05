@@ -4,6 +4,7 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import com.bridge.androidtechnicaltest.db.AppDatabase;
+import com.bridge.androidtechnicaltest.db.IPupilRepository;
 import com.bridge.androidtechnicaltest.db.PupilDao;
 import com.bridge.androidtechnicaltest.db.PupilRepository;
 import com.bridge.androidtechnicaltest.network.PupilService;
@@ -30,9 +31,8 @@ public class DatabaseModule {
 
 
     @Provides
-    public PupilRepository providePupilRepository(AppDatabase database, PupilService pupilApi) {
+    public IPupilRepository providePupilRepository(AppDatabase database, PupilService pupilApi) {
         return new PupilRepository(database, pupilApi);
     }
-
 
 }
