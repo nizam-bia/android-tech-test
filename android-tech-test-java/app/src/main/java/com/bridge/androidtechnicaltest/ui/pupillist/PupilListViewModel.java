@@ -22,7 +22,7 @@ public class PupilListViewModel extends ViewModel {
     private final CompositeDisposable disposable;
     private final IPupilRepository pupilRepository;
 
-    PupilListViewModel(IPupilRepository pupilRepository) {
+    public PupilListViewModel(IPupilRepository pupilRepository) {
         disposable = new CompositeDisposable();
         this.pupilRepository = pupilRepository;
     }

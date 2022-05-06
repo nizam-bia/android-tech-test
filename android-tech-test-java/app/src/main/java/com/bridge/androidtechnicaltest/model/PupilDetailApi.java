@@ -42,6 +42,15 @@ public class PupilDetailApi implements Serializable {
 
     private double longitude;
 
+    public PupilDetailApi(long pupilId, String country, String name, String image, double latitude, double longitude) {
+        this.pupilId = pupilId;
+        this.country = country;
+        this.name = name;
+        this.image = image;
+        this.latitude = latitude;
+        this.longitude= longitude;
+    }
+
     public Pupil mapToPupil() {
         return new Pupil(
                 pupilId,

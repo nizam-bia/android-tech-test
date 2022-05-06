@@ -27,4 +27,11 @@ public class PupilDataApi {
     private int itemCount;
 
     private int totalPages;
+
+    public PupilDataApi(List<PupilDetailApi> pupilDetailApis, int itemCount, int pageNumber, int totalPages) {
+        this.items = pupilDetailApis;
+        this.itemCount = itemCount;
+        this.totalPages = totalPages;
+        this.pageNumber = pageNumber;
+    }
 }

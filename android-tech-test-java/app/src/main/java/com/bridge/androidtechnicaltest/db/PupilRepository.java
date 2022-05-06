@@ -1,6 +1,5 @@
 package com.bridge.androidtechnicaltest.db;
 
-import com.bridge.androidtechnicaltest.model.PupilDataApi;
 import com.bridge.androidtechnicaltest.model.PupilDetailApi;
 import com.bridge.androidtechnicaltest.network.PupilService;
 
@@ -32,10 +31,8 @@ public class PupilRepository implements IPupilRepository {
             int startFromPage = 1;
             try {
                 List<PupilDetailApi> listOfPupilDetail = syncPupilsForPage(startFromPage).blockingGet();
-                List<Pupil> listOfPupil = new ArrayList<>();
-                for (PupilDetailApi pupilDetailApi : listOfPupilDetail) {
-                    listOfPupil.add(pupilDetailApi.mapToPupil());
-                }
+                List<Pupil> listOfPupil = convertToPupil(listOfPupilDetail);
+
                 database.getPupilDao().clear();
                 database.getPupilDao().insert(listOfPupil);
                 emitter.onComplete();
@@ -45,11 +42,19 @@ public class PupilRepository implements IPupilRepository {
         });
     }
 
+    private List<Pupil> convertToPupil(List<PupilDetailApi> listOfPupilDetail) {
+        List<Pupil> listOfPupil = new ArrayList<>();
+        for (PupilDetailApi pupilDetailApi : listOfPupilDetail) {
+            listOfPupil.add(pupilDetailApi.mapToPupil());
+        }
+        return listOfPupil;
+    }
+
     private Single<List<PupilDetailApi>> syncPupilsForPage(int pageNo) {
         List<PupilDetailApi> list = new ArrayList<>();
         return pupilApi.getPupils(pageNo)
                 .retry(3)
-                .map((Function<PupilDataApi, List<PupilDetailApi>>) pupilDataApi -> {
+                .map(pupilDataApi -> {
                     list.addAll(pupilDataApi.getItems());
                     if (pageNo <= pupilDataApi.getTotalPages()) {
                         List<PupilDetailApi> newList = syncPupilsForPage(pageNo + 1).blockingGet();
@@ -58,6 +63,9 @@ public class PupilRepository implements IPupilRepository {
                     }
                     return list;
                 })
-                .onErrorReturnItem(list);
+                .onErrorReturn(throwable -> {
+                    if (!list.isEmpty()) return list;
+                    throw new RuntimeException("No pupils found");
+                });
     }
 }
