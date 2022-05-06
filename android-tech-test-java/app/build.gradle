@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '30.0.2'
 
     defaultConfig {
         applicationId "com.bridge.androidtechnicaltest"
@@ -16,6 +16,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+
     }
 }
 
@@ -36,6 +42,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
 
     testImplementation 'junit:junit:4.12'
+    testImplementation "org.mockito:mockito-core:4.2.0"
     androidTestAnnotationProcessor 'com.google.dagger:dagger-compiler:2.11'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }

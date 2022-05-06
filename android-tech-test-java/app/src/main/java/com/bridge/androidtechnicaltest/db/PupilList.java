@@ -1,7 +1,9 @@
 package com.bridge.androidtechnicaltest.db;
 
+import com.bridge.androidtechnicaltest.model.PupilUi;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PupilList {
@@ -13,6 +15,13 @@ public class PupilList {
         this.pupilList = pupilList;
     }
 
+    public List<PupilUi> getPupilsForUi() {
+        List<PupilUi> pupilUiList = new ArrayList<>();
+        for (Pupil pupil: pupilList) {
+            pupilUiList.add(pupil.toPupilUi());
+        }
+        return pupilUiList;
+    }
 
     public List<Pupil> getPupilList() {
         return pupilList;

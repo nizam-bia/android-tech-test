@@ -1,6 +1,6 @@
 package com.bridge.androidtechnicaltest.network;
 
-import com.bridge.androidtechnicaltest.db.PupilList;
+import com.bridge.androidtechnicaltest.model.PupilDataApi;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
@@ -13,5 +13,5 @@ public interface PupilService {
     Completable reset();
 
     @GET("pupils")
-    Single<PupilList> getPupils(@Query("page")Integer page);
+    Single<PupilDataApi> getPupils(@Query("page")Integer page);
 }
